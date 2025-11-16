@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Student Registration</title>
+    </head>
+
+    <style>
+        body{
+            font-family:Arial;
+            padding:30px;
+            background-color:#f0f8ff;
+        }
+
+        h2{
+            text-align:center;
+        }
+
+        #reg{
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin:0 auto;
+            box-shadow:0 0 10px rgba(0,0,0,0.1)
+        }
+
+        #course{
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin:0 auto;
+            box-shadow:0 0 10px rgba(0,0,0,0.1)
+        }
+        input{
+            width: 93%;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border:1px solid #ccc;
+        }
+
+        button
+        {
+            width: 30%;
+            background-color: #003366;
+            padding: 8px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border:1px solid #c5baba;
+        }
+    </style>
+
+    <body>
+
+       
+
+        <form id="reg" onsubmit="return handle_Sreg()">
+             <h2>Student Registration</h2>
+            <label for="fullname">Full Name:</label><br>
+            <input type="text" id="fullname"><br>
+
+            <label for="email">Email:</label><br>
+            <input type="text" id="email"><br>
+
+            <label for="password">Password:</label><br>
+            <input type="text" id="password"><br>
+
+            <label for="Cpassword">Confirm Password:</label><br>
+            <input type="text" id="Cpassword"><br>
+
+            <button id="Register">Register</button>
+
+            <div id="output"></div>
+
+        </form>
+
+        <form id="course" onsubmit="return handle_course()">
+            <h2>Course Registration</h2>
+            <label for="Cname">Course Name:</label><br>
+            <input type="text" id="Cname"><br>
+            <button id="CRegister">Add Course</button>
+
+            
+            
+        </form>
+
+
+
+        <script>
+            function Delete()
+            {
+                let Id = this.id;
+                const deldiv = document.getElementById(Id);
+                deldiv.remove();
+            }
+            function handle_course()
+            {
+                let name = document.getElementById("Cname").value.trim();
+                let Cform=document.getElementById("course");
+                
+
+                const Cname = document.createElement('h1');
+                Cname.innerHTML = name;
+
+                const DelButton = document.createElement('button');
+                DelButton.innerHTML = "Delete";
+                DelButton.id = name;
+
+                const newdiv=document.createElement('div');
+                newdiv.id=name;
+                
+                Cform.appendChild(newdiv);
+                newdiv.appendChild(Cname);
+                newdiv.appendChild(DelButton);
+
+                DelButton.addEventListener("click",Delete);
+                
+
+                return false;
+
+            }
+            function handle_Sreg()
+            {
+                let name = document.getElementById("fullname").value.trim();
+                let email = document.getElementById("email").value.trim();
+                let password = document.getElementById("password").value.trim();
+                let Cpassword = document.getElementById("Cpassword").value.trim();
+                let outputDiv = document.getElementById("output");
+
+                outputDiv.innerHTML="";
+                if(name==""|| email==""||password==""||Cpassword=="")
+                {
+                    outputDiv.innerHTML="Fill in all the box.";
+                    return false;
+                }
+                if(!email.includes("@"))
+                {
+                    outputDiv.innerHTML="Email must contain @.";
+                    return false;
+                }
+
+                if(password != Cpassword)
+                {
+                    outputDiv.innerHTML="Confirmed password doesn't match.";
+                    return false;
+                }
+
+                outputDiv.innerHTML = `
+                <strong>Registration Successful!</strong><br><br>
+                Name: ${name}<br>
+                Email: ${email}<br>
+
+                `
+                return false;
+            }
+        </script>
+    </body>
+</html>
